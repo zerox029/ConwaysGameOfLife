@@ -1,0 +1,14 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
+
+.button {
+  margin-right: 6px;
+}
