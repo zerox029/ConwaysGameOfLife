@@ -15,7 +15,8 @@ class Board extends React.Component {
       cells: [],
       genTime: 1000,
       startButtonStatus: false,
-      isRunning: false
+      isRunning: false,
+      currentGen: 0
     }
   }
 
@@ -36,13 +37,17 @@ class Board extends React.Component {
       this.setState({startButtonStatus: this.props.startButtonStatus});
     }
 
+    if(this.state.currentGen !== prevState.currentGen) {
+      this.props.onGenChange(this.state.currentGen);
+    }
+
     if(this.state.isRunning === false && this.state.startButtonStatus === true) {
       this.startSimulation(this.state.genTime);
     }
   }
 
   clearBoard() {
-    this.setState({cells: this.create2DArray(this.state.boardSize)});
+    this.setState({cells: this.create2DArray(this.state.boardSize), currentGen: 0});
   }
 
   createBoard() {
@@ -50,7 +55,7 @@ class Board extends React.Component {
     const {boardSize} = this.state;
     if(boardSize !== this.state.cells.length)
     {
-      this.setState({cells: this.create2DArray(boardSize)});
+      this.setState({cells: this.create2DArray(boardSize), currentGen: 0});
     }
   }
 
@@ -85,6 +90,7 @@ class Board extends React.Component {
 
     if(this.state.startButtonStatus === true)
     {
+      this.setState({currentGen: this.state.currentGen + 1});
       this.runGeneration();
       setTimeout(() => this.startSimulation(genTime), genTime);
     }

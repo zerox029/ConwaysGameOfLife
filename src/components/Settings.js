@@ -16,9 +16,16 @@ class Settings extends React.Component {
       size: 10,
       speed: 1,
       isRunning: false,
+      currentGen: 0
     }
   }
   
+  componentDidUpdate(prevProps) {
+    if(prevProps.gen !== this.props.gen) {
+      this.setState({currentGen: this.props.gen})
+    }
+  }
+
   handleSizeChange(e) {
     this.setState({size: e.target.value});
   }
@@ -63,6 +70,8 @@ class Settings extends React.Component {
           </label>
           <button>Apply changes</button>
         </form>
+
+        <h3>Generation: {this.state.currentGen}</h3>
       </div>
     );
   }
